@@ -1,0 +1,47 @@
+/* body::-webkit-scrollbar {
+    width: 16px;
+}
+ 
+body::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+}
+ 
+body::-webkit-scrollbar-thumb {
+    background-color: #d4aa70;
+    border-radius: 100px;
+} */
+
+.main-container {
+    position: relative;
+    padding: 15px;
+    background-color: rgb(157, 181, 255);
+    border-radius: 10px;
+
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 10px;
+    background-color: #5323f2c9;
+    border-radius: 10px;
+}
+
+.ticket-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 10px;
+    background-color: #b7b7b79e;
+    border-radius: 10px;
+}
+
+.no-outline:focus {
+    outline: none;
+}

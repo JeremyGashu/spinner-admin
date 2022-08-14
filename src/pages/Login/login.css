@@ -1,0 +1,71 @@
+.main-container-two {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-main-container {
+    padding: 40px;
+    border: 1px solid rgb(0, 179, 255);
+    background-color: rgba(0, 179, 255, 0.071);
+    border-radius: 7px;
+}
+
+.logo {
+    margin: 10px;
+    font-size: 45px;
+    padding: 10px 15px;
+    font-weight: 700;
+    text-align: center;
+    /* background-color: green; */
+}
+
+.best {
+    color: black;
+}
+
+.bet {
+    color: red;
+
+}
+
+.input-field {
+    outline: none;
+    padding: 8px 10px;
+    width: 280px;
+    margin: 10px;
+    border: 1px solid rgb(0, 179, 255);
+    border-radius: 7px;
+    display: block;
+}
+
+.submit-btn {
+    padding: 5px 10px;
+    width: 140px;
+    cursor: pointer;
+    background-color: rgb(0, 79, 113);
+    outline: none;
+    border: 1px solid white;
+    color: white;
+    margin: 10px;
+    width: 280px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 7px;
+    margin-top: 20px;
+    transition: all 0.2s ease;
+
+}
+
+.submit-btn:hover {
+    background-color: rgb(0, 53, 75);
+}
+
+@media screen and (min-width: 3000px) {
+    .login-main-container {
+        zoom: 320%;
+    }
+}
