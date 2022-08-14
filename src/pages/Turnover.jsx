@@ -8,11 +8,22 @@ import React, { useEffect, useState } from 'react'
 import { queryClient } from '..'
 import FullPageLoading from '../components/FullPageLoading'
 import { getTurnOver } from '../controllers/spinner_ticket'
+import { getAllUsers } from '../controllers/users'
 
 const Turnover = () => {
     const [page, setPage] = useState(1)
 
     const [filter, setFilter] = React.useState('');
+
+    const { data: usersData } = useQuery(['users'], () => getAllUsers())
+    const [user, setUser] = useState('')
+
+    const handleUserChange = (event) => {
+        // setPage(1)
+        // setFilter(event.target.value);
+        setUser(event.target.value)
+    };
+
     const handleFilterChange = (event) => {
         setPage(1)
         setFilter(event.target.value);
@@ -27,13 +38,13 @@ const Turnover = () => {
         if (page === 1) return
         setPage(page - 1)
     }
-    const { data, isLoading } = useQuery(['turnover', filter], () => getTurnOver(filter))
+    const { data, isLoading } = useQuery(['turnover', filter, user], () => getTurnOver(filter, user))
     console.log(data)
     useEffect(() => {
         queryClient.invalidateQueries(['turnover'])
         return () => {
         }
-    }, [filter])
+    }, [filter, user])
 
     let columns = [
         {
@@ -164,6 +175,27 @@ const Turnover = () => {
                             <MenuItem value={'last_year'}>Last Year</MenuItem>
                         </Select>
                     </FormControl>
+
+                    <FormControl sx={{ m: 1, minWidth: 120, mb: 2 }} size="small">
+                        <InputLabel id="demo-select-small">User</InputLabel>
+                        <Select
+                            labelId="demo-select-small"
+                            id="demo-select-small"
+                            value={user}
+                            label="Age"
+                            onChange={handleUserChange}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {
+                                usersData && usersData.filter(u => u.type === 'CASHIER').map(user => {
+                                    return <MenuItem value={user.name}>{user.name}</MenuItem>
+                                })
+                            }
+                        </Select>
+                    </FormControl>
+
                     <DataGrid
                         disableSelectionOnClick={true}
                         rows={[{ ...data, id: Math.random() }]}

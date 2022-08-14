@@ -8,14 +8,24 @@ import React, { useEffect, useState } from 'react'
 import { queryClient } from '..'
 import FullPageLoading from '../components/FullPageLoading'
 import { getAllTickets } from '../controllers/spinner_ticket'
+import { getAllUsers } from '../controllers/users'
 
 const Tickets = () => {
     const [page, setPage] = useState(1)
+    const { data: usersData } = useQuery(['users'], () => getAllUsers())
+    const [user, setUser] = useState('')
+    console.log(usersData)
 
     const [filter, setFilter] = React.useState('');
     const handleFilterChange = (event) => {
         setPage(1)
         setFilter(event.target.value);
+    };
+
+    const handleUserChange = (event) => {
+        // setPage(1)
+        // setFilter(event.target.value);
+        setUser(event.target.value)
     };
 
     const limit = 20
@@ -99,6 +109,20 @@ const Tickets = () => {
                 return (
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 120, borderRadius: 2, px: 2, py: 1, }}>
                         <Typography sx={{ fontSize: 13 }}>Spin 2 Win</Typography>
+                    </Box>
+
+                )
+            }
+        },
+
+        {
+            field: 'Cashier',
+            headerName: 'Cashier',
+            width: 120,
+            renderCell: (cellValue) => {
+                return (
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: 120, borderRadius: 2, px: 2, py: 1, }}>
+                        <Typography sx={{ fontSize: 13 }}>{cellValue['row']['cashier']}</Typography>
                     </Box>
 
                 )
@@ -200,10 +224,33 @@ const Tickets = () => {
                             <MenuItem value={'this_year'}>This Year</MenuItem>
                             <MenuItem value={'last_year'}>Last Year</MenuItem>
                         </Select>
+
+
                     </FormControl>
+                    <FormControl sx={{ m: 1, minWidth: 120, mb: 2 }} size="small">
+                        <InputLabel id="demo-select-small">User</InputLabel>
+                        <Select
+                            labelId="demo-select-small"
+                            id="demo-select-small"
+                            value={user}
+                            label="Age"
+                            onChange={handleUserChange}
+                        >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            {
+                                usersData && usersData.filter(u => u.type === 'CASHIER').map(user => {
+                                    return <MenuItem value={user.name}>{user.name}</MenuItem>
+                                })
+                            }
+                        </Select>
+                    </FormControl>
+
+
                     <DataGrid
                         disableSelectionOnClick={true}
-                        rows={data.data || []}
+                        rows={(data.data && user === '' ? data.data : data.data.filter(t => t.cashier === user)) || []}
                         columns={columns}
                         // pagination={false}
                         hideFooterPagination={true}

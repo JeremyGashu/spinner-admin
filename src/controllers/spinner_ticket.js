@@ -11,13 +11,13 @@ export const getAllTickets = async (page, limit, filter) => {
     return { data: response.data && response.data.tickets, last: response.data && response.data.lastPage }
 }
 
-export const getTurnOver = async (filter) => {
+export const getTurnOver = async (filter, user) => {
     // console.log(limit)
-    // console.log(page)
-    let response = await axios.get(`${BASE_URL}/spinner/ticket/turnover?filter=${filter}`)
+    console.log(user)
+    let response = await axios.get(`${BASE_URL}/spinner/ticket/turnover?filter=${filter}&user=${user}`)
     if (response.status === 200 && !response.data.error) {
     }
-    console.log(response.data)
+    // console.log(response.data)
     return response.data && response.data.turnover
 }
 
