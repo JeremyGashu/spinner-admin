@@ -10,13 +10,36 @@ import FullPageLoading from '../components/FullPageLoading'
 import { getTurnOver } from '../controllers/spinner_ticket'
 import { getAllUsers } from '../controllers/users'
 
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRange } from 'react-date-range';
+
+
+
+
 const Turnover = () => {
     const [page, setPage] = useState(1)
 
-    const [filter, setFilter] = React.useState('');
+    const [filter, setFilter] = useState('all');
 
     const { data: usersData } = useQuery(['users'], () => getAllUsers())
     const [user, setUser] = useState('')
+    const [from, setFrom] = useState()
+    const [to, setTo] = useState()
+
+    // const [value, setValue] = useState([null, null]);
+    // const [dateRange, setDateRange] = useState({});
+
+    // const toggle = () => setOpen(!open);
+
+    const [state, setState] = useState([
+        {
+            startDate: new Date(),
+            endDate: null,
+            key: 'selection'
+        }
+    ]);
+
 
     const handleUserChange = (event) => {
         // setPage(1)
@@ -25,6 +48,13 @@ const Turnover = () => {
     };
 
     const handleFilterChange = (event) => {
+        // setState([
+        //     {
+        //         startDate: new Date(),
+        //         endDate: null,
+        //         key: 'selection'
+        //     }
+        // ])
         setPage(1)
         setFilter(event.target.value);
     };
@@ -38,13 +68,13 @@ const Turnover = () => {
         if (page === 1) return
         setPage(page - 1)
     }
-    const { data, isLoading } = useQuery(['turnover', filter, user], () => getTurnOver(filter, user))
+    const { data, isLoading } = useQuery(['turnover', filter, user, from, to], () => getTurnOver(filter, user, from, to))
     console.log(data)
     useEffect(() => {
         queryClient.invalidateQueries(['turnover'])
         return () => {
         }
-    }, [filter, user])
+    }, [filter, user, from, to])
 
     let columns = [
         {
@@ -144,7 +174,6 @@ const Turnover = () => {
             }
         },
     ]
-
     return (
 
         <Box height={500} sx={{ fontSize: 12, p: 3 }}>
@@ -162,9 +191,7 @@ const Turnover = () => {
                             label="Age"
                             onChange={handleFilterChange}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
+                            <MenuItem value={'all'}>All</MenuItem>
                             <MenuItem value={'today'}>Today</MenuItem>
                             <MenuItem value={'yesterday'}>Yesterday</MenuItem>
                             <MenuItem value={'this_week'}>This Week</MenuItem>
@@ -195,6 +222,21 @@ const Turnover = () => {
                             }
                         </Select>
                     </FormControl>
+
+                    <DateRange
+                        editableDateInputs={true}
+                        onChange={item => {
+                            console.log(item.selection.startDate.toString())
+                            setFilter('')
+                            setFrom(item.selection.startDate)
+                            setTo(item.selection.endDate)
+                            setState([item.selection])
+                        }}
+                        moveRangeOnFirstSelection={false}
+                        ranges={state}
+                    />
+
+
 
                     <DataGrid
                         disableSelectionOnClick={true}
