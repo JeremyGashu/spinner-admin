@@ -30,5 +30,5 @@ export const padNumbers = (num, size) => {
 
 
 
-export const BASE_URL = 'https://frozen-tundra-74972.herokuapp.com'
+export const BASE_URL = 'https://spinner.alnejashi.com'
 // export const BASE_URL = 'http://localhost:5000'
