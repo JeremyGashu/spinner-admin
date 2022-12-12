@@ -5,7 +5,6 @@ export const getAllUsers = async () => {
     let response = await axios.get(`${BASE_URL}/users`)
     if (response.status === 200 && !response.data.error) {
     }
-    console.log(response.data)
     return response.data.users
 }
 

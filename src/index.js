@@ -1,19 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { BrowserRouter } from 'react-router-dom'
-import { SnackbarProvider } from 'notistack';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { BrowserRouter } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 // import { QueryClient, QueryClientProvider } from 'react-query';
 
-export const queryClient = new QueryClient()
-
+export const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <SnackbarProvider anchorOrigin={{
-    vertical: 'bottom',
-    horizontal: 'left',
-  }} maxSnack={3}>
+  <SnackbarProvider
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "left",
+    }}
+    maxSnack={3}
+  >
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <React.StrictMode>
@@ -21,8 +23,8 @@ ReactDOM.render(
         </React.StrictMode>
       </BrowserRouter>
     </QueryClientProvider>
-  </SnackbarProvider >
-  , document.getElementById('root')
+  </SnackbarProvider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

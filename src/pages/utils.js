@@ -31,5 +31,7 @@ export const padNumbers = (num, size) => {
   return num;
 };
 
-export const BASE_URL = "https://spinner-keno-backend.onrender.com";
-// export const BASE_URL = 'http://localhost:5000'
+// export const BASE_URL = "https://sleepy-ridge-36787.herokuapp.com";
+export const BASE_URL = "http://localhost:5000";
+export const BASE_KENO_URL = "http://localhost:4000";
+// export const BASE_URL = "https://api.winners123.com";

@@ -16,7 +16,7 @@ const CashiersPage = () => {
     const { data, isLoading } = useQuery(['users'], () => getAllUsers())
     const [id, setId] = useState('')
     const navigate = useNavigate()
-    console.log(data)
+    // console.log(data)
 
     const [open, setOpen] = useState(false);
     const handleClickOpen = (id) => {
@@ -30,9 +30,9 @@ const CashiersPage = () => {
 
     const { mutate } = useMutation(deleteUser, {
         onError: (error, variables, context) => {
-            console.log(error)
-            console.log(variables)
-            console.log(context)
+            // console.log(error)
+            // console.log(variables)
+            // console.log(context)
         },
         onSuccess: (data, variables, context) => {
             // toast('Deleted company successfully!', { type: 'success', position: toast.POSITION.BOTTOM_RIGHT, })

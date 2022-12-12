@@ -8,14 +8,14 @@ const LoginPage = () => {
     const navigate = useNavigate()
     const { mutate, isLoading } = useMutation(loginUser, {
         onError: (error, variables, context) => {
-            console.log(error)
-            console.log(variables)
-            console.log(context)
+            // console.log(error)
+            // console.log(variables)
+            // console.log(context)
             // alert('Error')
             // enqueueSnackbar('Some error encountered. Please try Again.', { variant: 'error' })
         },
         onSuccess: (data, variables, context) => {
-            console.log(data)
+            // console.log(data)
             if (data.body && data.body.user && data.body.user.type === 'ADMIN') {
                 localStorage.setItem('auth-data', JSON.stringify(data.body.user))
                 navigate('/home')
@@ -32,7 +32,7 @@ const LoginPage = () => {
     const handleLoginClick = () => {
         // navigate('/viewer')
         let data = { username, password }
-        console.log(data)
+        // console.log(data)
         mutate(data)
     }
 
